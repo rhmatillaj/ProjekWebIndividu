@@ -295,6 +295,28 @@ taskForm.addEventListener("submit", function (event) {
 });
 
 // =========================================================
+// EDIT TUGAS
+// =========================================================
+function editTask(id) {
+    const task = tasks.find(function (item) {
+        return item.id === id;
+    });
+
+    if (!task) {
+        return;
+    }
+
+    editTaskId = id;
+    taskTitle.value = task.title;
+    taskCourse.value = task.course;
+    taskDeadline.value = task.deadline;
+    taskPriority.value = task.priority;
+    modalTitle.textContent = "Edit Tugas";
+
+    openModal();
+}
+
+// =========================================================
 // HAPUS TUGAS
 // =========================================================
 function deleteTask(id) {
