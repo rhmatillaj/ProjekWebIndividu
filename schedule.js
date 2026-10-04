@@ -83,3 +83,68 @@ Object.entries(dayElements).forEach(function ([day, element]) {
         showToast("↔️ Jadwal berhasil dipindahkan.");
     });
 });
+
+// =========================================================
+// MENAMPILKAN JADWAL
+// =========================================================
+function renderSchedule() {
+    // Kosongkan semua kolom hari.
+    Object.values(dayElements).forEach(function (element) {
+        element.innerHTML = "";
+    });
+
+    // Masukkan setiap jadwal ke kolom hari yang sesuai.
+    schedules.forEach(function (schedule) {
+        const dayContainer = dayElements[schedule.day];
+
+        if (!dayContainer) {
+            return;
+        }
+
+        const item = document.createElement("div");
+        item.classList.add("schedule-item");
+        item.draggable = true;
+        item.dataset.scheduleId = schedule.id;
+
+        // Saat card mulai ditarik.
+        item.addEventListener("dragstart", function (event) {
+            event.dataTransfer.setData("text/plain", String(schedule.id));
+            event.dataTransfer.effectAllowed = "move";
+            item.classList.add("is-dragging");
+        });
+
+        // Saat card selesai ditarik.
+        item.addEventListener("dragend", function () {
+            item.classList.remove("is-dragging");
+
+            Object.values(dayElements).forEach(function (element) {
+                element.classList.remove("drag-over");
+            });
+        });
+
+        // Isi card jadwal.
+        item.innerHTML = `
+            <h3>${schedule.course}</h3>
+            <p>${schedule.start} - ${schedule.end}</p>
+            <div class="schedule-location">📍 ${schedule.room}</div>
+            <div class="schedule-actions">
+                <button
+                    class="action-button action-edit"
+                    onclick="editSchedule(${schedule.id})"
+                >
+                    Edit
+                </button>
+                <button
+                    class="action-button action-delete"
+                    onclick="deleteSchedule(${schedule.id})"
+                >
+                    Hapus
+                </button>
+            </div>
+        `;
+
+        dayContainer.appendChild(item);
+    });
+
+    renderTodaySchedule();
+}
