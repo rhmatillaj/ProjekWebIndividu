@@ -148,3 +148,46 @@ function renderSchedule() {
 
     renderTodaySchedule();
 }
+
+// =========================================================
+// JADWAL HARI INI
+// =========================================================
+function renderTodaySchedule() {
+    const days = [
+        "Minggu",
+        "Senin",
+        "Selasa",
+        "Rabu",
+        "Kamis",
+        "Jumat",
+        "Sabtu"
+    ];
+
+    const today = days[new Date().getDay()];
+
+    const todaySchedules = schedules.filter(function (schedule) {
+        return schedule.day === today;
+    });
+
+    todayScheduleDetail.innerHTML = "";
+
+    if (todaySchedules.length === 0) {
+        todayScheduleDetail.innerHTML = `
+            <p style="color: #64748b;">Tidak ada jadwal hari ini.</p>
+        `;
+        return;
+    }
+
+    todaySchedules.forEach(function (schedule) {
+        const item = document.createElement("div");
+        item.classList.add("schedule-item");
+
+        item.innerHTML = `
+            <h3>${schedule.course}</h3>
+            <p>${schedule.start} - ${schedule.end} • ${schedule.room}</p>
+        `;
+
+        todayScheduleDetail.appendChild(item);
+    });
+}
+
