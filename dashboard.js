@@ -15,3 +15,35 @@ const dashboardTaskList = document.getElementById("dashboardTaskList");
 const progressFill = document.getElementById("progressFill");
 const progressText = document.getElementById("progressText");
 const todayScheduleList = document.getElementById("todayScheduleList");
+
+// =========================================================
+// UPDATE STATISTIK DASHBOARD
+// =========================================================
+function updateStatistics() {
+    const totalTasks = tasks.length;
+
+    // Menghitung jumlah tugas yang sudah selesai.
+    const completedTasks = tasks.filter(function (task) {
+        return task.completed === true;
+    }).length;
+
+    // Tugas yang belum selesai = total tugas - tugas selesai.
+    const pendingTasks = totalTasks - completedTasks;
+
+    // Menghitung persentase progress.
+    let progress = 0;
+
+    if (totalTasks > 0) {
+        progress = Math.round((completedTasks / totalTasks) * 100);
+    }
+
+    // Menampilkan hasil ke elemen HTML.
+    totalTasksElement.textContent = totalTasks;
+    completedTasksElement.textContent = completedTasks;
+    pendingTasksElement.textContent = pendingTasks;
+    taskProgressElement.textContent = progress + "%";
+
+    // Mengatur lebar progress bar.
+    progressFill.style.width = progress + "%";
+    progressText.textContent = progress + "%";
+}
