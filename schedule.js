@@ -300,3 +300,26 @@ scheduleForm.addEventListener("submit", function (event) {
     renderSchedule();
     closeScheduleModalWindow();
 });
+
+// =========================================================
+// EDIT JADWAL
+// =========================================================
+function editSchedule(id) {
+    const schedule = schedules.find(function (item) {
+        return item.id === id;
+    });
+
+    if (!schedule) {
+        return;
+    }
+
+    editScheduleId = id;
+    scheduleCourse.value = schedule.course;
+    scheduleDay.value = schedule.day;
+    scheduleStart.value = schedule.start;
+    scheduleEnd.value = schedule.end;
+    scheduleRoom.value = schedule.room;
+    scheduleModalTitle.textContent = "Edit Jadwal";
+
+    openScheduleModal();
+}
