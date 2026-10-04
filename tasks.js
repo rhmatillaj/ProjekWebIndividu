@@ -348,3 +348,16 @@ function toggleTask(id) {
         showToast("↩️ Tugas dikembalikan.");
     }
 }
+
+// =========================================================
+// SEARCH, FILTER, DAN SORTING
+// =========================================================
+searchTask.addEventListener("input", renderTasks);
+filterStatus.addEventListener("change", renderTasks);
+filterPriority.addEventListener("change", renderTasks);
+sortDeadline.addEventListener("change", renderTasks);
+
+// =========================================================
+// INITIAL RENDER
+// =========================================================
+renderTasks();
