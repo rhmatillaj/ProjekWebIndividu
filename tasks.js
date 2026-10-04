@@ -151,3 +151,48 @@ function renderTasks() {
 
     updateTaskStatistics();
 }
+
+// =========================================================
+// FORMAT TANGGAL
+// =========================================================
+function formatDate(dateString) {
+    return new Date(dateString).toLocaleDateString("id-ID", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric"
+    });
+}
+
+// =========================================================
+// UPDATE STATISTIK TUGAS
+// =========================================================
+function updateTaskStatistics() {
+    const total = tasks.length;
+    let completed = 0;
+    let overdue = 0;
+
+    // Ambil tanggal hari ini tanpa jam.
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    tasks.forEach(function (task) {
+        if (task.completed === true) {
+            completed++;
+        }
+
+        // Tugas terlambat jika deadline sudah lewat dan belum selesai.
+        const deadline = new Date(task.deadline);
+        deadline.setHours(0, 0, 0, 0);
+
+        if (deadline < today && task.completed === false) {
+            overdue++;
+        }
+    });
+
+    const pending = total - completed;
+
+    taskTotal.textContent = total;
+    taskCompleted.textContent = completed;
+    taskPending.textContent = pending;
+    taskOverdue.textContent = overdue;
+}
