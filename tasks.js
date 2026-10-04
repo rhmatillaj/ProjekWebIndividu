@@ -196,3 +196,100 @@ function updateTaskStatistics() {
     taskPending.textContent = pending;
     taskOverdue.textContent = overdue;
 }
+
+// =========================================================
+// MODAL TUGAS
+// =========================================================
+function openModal() {
+    taskModal.classList.add("show");
+    taskModal.setAttribute("aria-hidden", "false");
+}
+
+function closeModal() {
+    taskModal.classList.remove("show");
+    taskModal.setAttribute("aria-hidden", "true");
+    taskForm.reset();
+    editTaskId = null;
+    modalTitle.textContent = "Tambah Tugas";
+}
+
+// Tombol tambah tugas.
+addTaskButton.addEventListener("click", function () {
+    editTaskId = null;
+    taskForm.reset();
+    modalTitle.textContent = "Tambah Tugas";
+    openModal();
+});
+
+// Tombol tutup dan batal.
+closeModalButton.addEventListener("click", closeModal);
+cancelTaskButton.addEventListener("click", closeModal);
+
+// =========================================================
+// TAMBAH / EDIT TUGAS
+// =========================================================
+taskForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const title = taskTitle.value.trim();
+    const course = taskCourse.value.trim();
+    const deadline = taskDeadline.value;
+    const priority = taskPriority.value;
+
+    // Validasi input.
+    if (title === "") {
+        showToast("⚠️ Judul tugas belum diisi.");
+        return;
+    }
+
+    if (course === "") {
+        showToast("⚠️ Mata kuliah belum diisi.");
+        return;
+    }
+
+    if (deadline === "") {
+        showToast("⚠️ Deadline belum dipilih.");
+        return;
+    }
+
+    if (priority === "") {
+        showToast("⚠️ Prioritas belum dipilih.");
+        return;
+    }
+
+    // Jika ada ID edit, perbarui tugas lama.
+    if (editTaskId !== null) {
+        const task = tasks.find(function (item) {
+            return item.id === editTaskId;
+        });
+
+        if (!task) {
+            return;
+        }
+
+        task.title = title;
+        task.course = course;
+        task.deadline = deadline;
+        task.priority = priority;
+
+        saveTasks();
+        showToast("✅ Tugas berhasil diperbarui.");
+    } else {
+        // Jika tidak ada ID edit, buat tugas baru.
+        const newTask = {
+            id: Date.now(),
+            title: title,
+            course: course,
+            deadline: deadline,
+            priority: priority,
+            completed: false
+        };
+
+        tasks.push(newTask);
+        saveTasks();
+        showToast("✅ Tugas berhasil ditambahkan.");
+    }
+
+    renderTasks();
+    closeModal();
+});
