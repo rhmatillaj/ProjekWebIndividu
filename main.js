@@ -33,3 +33,23 @@ function saveTasks() {
 function saveSchedules() {
     localStorage.setItem("taskuy_schedules", JSON.stringify(schedules));
 }
+
+// ---------------------------------------------------------
+// TOAST NOTIFICATION
+// Dipakai bersama oleh halaman My Tasks dan Schedule.
+// ---------------------------------------------------------
+function showToast(message) {
+    const toast = document.getElementById("toast");
+
+    if (!toast) {
+        return;
+    }
+
+    toast.textContent = message;
+    toast.classList.add("show");
+
+    clearTimeout(showToast.timer);
+    showToast.timer = setTimeout(function () {
+        toast.classList.remove("show");
+    }, 2500);
+}
