@@ -1075,3 +1075,55 @@ tbody tr:hover {
     justify-content: center;
     gap: 12px;
 }
+
+/* ========================================
+   ACTION BUTTONS
+======================================== */
+
+.task-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.action-button {
+    border: none;
+    border-radius: 7px;
+    padding: 8px 12px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+/* Selesai */
+.action-complete {
+    background-color: #dcfce7;
+    color: #15803d;
+}
+
+.action-complete:hover {
+    background-color: #bbf7d0;
+}
+
+/* Edit */
+.action-edit {
+    background-color: #eef2ff;
+    color: #4f46e5;
+}
+
+.action-edit:hover {
+    background-color: #e0e7ff;
+}
+
+/* Hapus */
+.action-delete {
+    background-color: #fee2e2;
+    color: #dc2626;
+}
+
+.action-delete:hover {
+    background-color: #fecaca;
+}
