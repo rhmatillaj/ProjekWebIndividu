@@ -33,3 +33,121 @@ const confirmDeleteButton = document.getElementById("confirmDeleteButton");
 // ID tugas yang sedang diedit atau akan dihapus.
 let editTaskId = null;
 let deleteTaskId = null;
+
+// =========================================================
+// MENAMPILKAN DAFTAR TUGAS
+// =========================================================
+function renderTasks() {
+    taskTableBody.innerHTML = "";
+
+    // Nilai pencarian dan filter.
+    const searchValue = searchTask.value.toLowerCase();
+    const statusValue = filterStatus.value;
+    const priorityValue = filterPriority.value;
+
+    // Filter berdasarkan nama, status, dan prioritas.
+    let filteredTasks = tasks.filter(function (task) {
+        const matchSearch = task.title.toLowerCase().includes(searchValue);
+
+        let matchStatus = true;
+        if (statusValue === "completed") {
+            matchStatus = task.completed === true;
+        } else if (statusValue === "pending") {
+            matchStatus = task.completed === false;
+        }
+
+        let matchPriority = true;
+        if (priorityValue !== "all") {
+            matchPriority = task.priority === priorityValue;
+        }
+
+        return matchSearch && matchStatus && matchPriority;
+    });
+
+    // Sorting berdasarkan deadline.
+    if (sortDeadline.value === "nearest") {
+        filteredTasks.sort(function (a, b) {
+            return new Date(a.deadline) - new Date(b.deadline);
+        });
+    }
+
+    if (sortDeadline.value === "furthest") {
+        filteredTasks.sort(function (a, b) {
+            return new Date(b.deadline) - new Date(a.deadline);
+        });
+    }
+
+    // Jika hasil filter kosong.
+    if (filteredTasks.length === 0) {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+            <td colspan="6" class="empty-state">
+                <div class="empty-state-content">
+                    <div class="empty-state-icon">📋</div>
+                    <h3>Tidak ada tugas</h3>
+                    <p>Belum ada tugas yang sesuai dengan pencarian atau filter.</p>
+                </div>
+            </td>
+        `;
+        taskTableBody.appendChild(row);
+    }
+
+    // Menampilkan tugas ke tabel.
+    filteredTasks.forEach(function (task) {
+        const row = document.createElement("tr");
+
+        const statusText = task.completed ? "Selesai" : "Belum Selesai";
+        const statusClass = task.completed
+            ? "status-completed"
+            : "status-pending";
+
+        let priorityClass = "priority-low";
+        if (task.priority === "Tinggi") {
+            priorityClass = "priority-high";
+        } else if (task.priority === "Sedang") {
+            priorityClass = "priority-medium";
+        }
+
+        row.innerHTML = `
+            <td><strong>${task.title}</strong></td>
+            <td>${task.course}</td>
+            <td>${formatDate(task.deadline)}</td>
+            <td>
+                <span class="priority-badge ${priorityClass}">
+                    ${task.priority}
+                </span>
+            </td>
+            <td>
+                <span class="status-badge ${statusClass}">
+                    ${statusText}
+                </span>
+            </td>
+            <td>
+                <div class="task-actions">
+                    <button
+                        class="action-button action-complete"
+                        onclick="toggleTask(${task.id})"
+                    >
+                        ${task.completed ? "Batal" : "Selesai"}
+                    </button>
+                    <button
+                        class="action-button action-edit"
+                        onclick="editTask(${task.id})"
+                    >
+                        Edit
+                    </button>
+                    <button
+                        class="action-button action-delete"
+                        onclick="deleteTask(${task.id})"
+                    >
+                        Hapus
+                    </button>
+                </div>
+            </td>
+        `;
+
+        taskTableBody.appendChild(row);
+    });
+
+    updateTaskStatistics();
+}
