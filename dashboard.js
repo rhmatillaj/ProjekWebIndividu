@@ -47,3 +47,55 @@ function updateStatistics() {
     progressFill.style.width = progress + "%";
     progressText.textContent = progress + "%";
 }
+
+// =========================================================
+// MENAMPILKAN TUGAS TERDEKAT
+// =========================================================
+function renderDashboardTasks() {
+    // Hapus isi lama sebelum menampilkan data baru.
+    dashboardTaskList.innerHTML = "";
+
+    // Ambil maksimal 3 tugas yang belum selesai,
+    // kemudian urutkan berdasarkan deadline terdekat.
+    const upcomingTasks = tasks
+        .filter(function (task) {
+            return task.completed === false;
+        })
+        .sort(function (a, b) {
+            return new Date(a.deadline) - new Date(b.deadline);
+        })
+        .slice(0, 3);
+
+    // Jika belum ada tugas, tampilkan pesan kosong.
+    if (upcomingTasks.length === 0) {
+        dashboardTaskList.innerHTML = `
+            <div class="empty-dashboard">
+                <div class="empty-dashboard-icon">📋</div>
+                <h3>Tidak ada tugas terdekat</h3>
+                <p>
+                    Semua tugas sudah selesai atau
+                    belum ada tugas yang ditambahkan.
+                </p>
+            </div>
+        `;
+        return;
+    }
+
+    // Menampilkan setiap tugas ke Dashboard.
+    upcomingTasks.forEach(function (task) {
+        const taskItem = document.createElement("div");
+        taskItem.classList.add("dashboard-task");
+
+        const statusText = task.completed ? "Selesai" : "Belum Selesai";
+
+        taskItem.innerHTML = `
+            <div>
+                <h3>${task.title}</h3>
+                <p>${task.course} • Deadline: ${task.deadline}</p>
+            </div>
+            <span>${statusText}</span>
+        `;
+
+        dashboardTaskList.appendChild(taskItem);
+    });
+}
