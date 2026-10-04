@@ -99,3 +99,56 @@ function renderDashboardTasks() {
         dashboardTaskList.appendChild(taskItem);
     });
 }
+
+// =========================================================
+// MENAMPILKAN JADWAL HARI INI
+// =========================================================
+function renderDashboardTodaySchedule() {
+    todayScheduleList.innerHTML = "";
+
+    // Urutan hari mengikuti nilai yang dikembalikan getDay().
+    const days = [
+        "Minggu",
+        "Senin",
+        "Selasa",
+        "Rabu",
+        "Kamis",
+        "Jumat",
+        "Sabtu"
+    ];
+
+    const today = days[new Date().getDay()];
+
+    // Ambil jadwal yang memiliki hari sama dengan hari ini.
+    const todaySchedules = schedules.filter(function (schedule) {
+        return schedule.day === today;
+    });
+
+    // Jika tidak ada jadwal hari ini.
+    if (todaySchedules.length === 0) {
+        todayScheduleList.innerHTML = `
+            <div class="empty-state-content">
+                <div class="empty-state-icon">📅</div>
+                <h3>Tidak ada jadwal hari ini</h3>
+                <p>Kamu tidak memiliki jadwal untuk hari ${today}.</p>
+            </div>
+        `;
+        return;
+    }
+
+    // Menampilkan semua jadwal hari ini.
+    todaySchedules.forEach(function (schedule) {
+        const scheduleItem = document.createElement("div");
+        scheduleItem.classList.add("schedule-item");
+
+        scheduleItem.innerHTML = `
+            <div>
+                <h3>${schedule.course}</h3>
+                <p>${schedule.start} - ${schedule.end}</p>
+            </div>
+            <span>${schedule.room}</span>
+        `;
+
+        todayScheduleList.appendChild(scheduleItem);
+    });
+}
