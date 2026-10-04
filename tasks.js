@@ -325,3 +325,26 @@ confirmDeleteButton.addEventListener("click", function () {
     renderTasks();
     showToast("🗑️ Tugas berhasil dihapus.");
 });
+
+// =========================================================
+// UBAH STATUS TUGAS
+// =========================================================
+function toggleTask(id) {
+    const task = tasks.find(function (item) {
+        return item.id === id;
+    });
+
+    if (!task) {
+        return;
+    }
+
+    task.completed = !task.completed;
+    saveTasks();
+    renderTasks();
+
+    if (task.completed) {
+        showToast("✅ Tugas ditandai selesai.");
+    } else {
+        showToast("↩️ Tugas dikembalikan.");
+    }
+}
