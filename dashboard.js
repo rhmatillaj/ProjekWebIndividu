@@ -152,3 +152,10 @@ function renderDashboardTodaySchedule() {
         todayScheduleList.appendChild(scheduleItem);
     });
 }
+
+// =========================================================
+// JALANKAN DASHBOARD
+// =========================================================
+updateStatistics();
+renderDashboardTasks();
+renderDashboardTodaySchedule();
