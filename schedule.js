@@ -323,3 +323,40 @@ function editSchedule(id) {
 
     openScheduleModal();
 }
+
+// =========================================================
+// HAPUS JADWAL
+// =========================================================
+function deleteSchedule(id) {
+    deleteScheduleId = id;
+    deleteConfirmModal.classList.add("show");
+}
+
+// Tombol batal hapus.
+cancelDeleteButton.addEventListener("click", function () {
+    deleteConfirmModal.classList.remove("show");
+    deleteScheduleId = null;
+});
+
+// Tombol konfirmasi hapus.
+confirmDeleteButton.addEventListener("click", function () {
+    if (deleteScheduleId === null) {
+        return;
+    }
+
+    schedules = schedules.filter(function (schedule) {
+        return schedule.id !== deleteScheduleId;
+    });
+
+    saveSchedules();
+    deleteConfirmModal.classList.remove("show");
+    deleteScheduleId = null;
+
+    renderSchedule();
+    showToast("🗑️ Jadwal berhasil dihapus.");
+});
+
+// =========================================================
+// INITIAL RENDER
+// =========================================================
+renderSchedule();
