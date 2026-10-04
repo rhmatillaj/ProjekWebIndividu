@@ -390,3 +390,65 @@ body {
 .secondary-button:hover {
     background-color: #cbd5e1;
 }
+
+/* ========================================
+   TASK TOOLS
+======================================== */
+
+.task-tools {
+    display: grid;
+
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+
+    gap: 15px;
+
+    background-color: white;
+
+    padding: 20px;
+
+    border-radius: 14px;
+
+    margin-bottom: 25px;
+
+    box-shadow: 0 2px 10px rgba(15, 23, 42, 0.05);
+}
+
+.search-box,
+.filter-box {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 7px;
+}
+
+.search-box label,
+.filter-box label {
+    font-size: 12px;
+
+    font-weight: 600;
+
+    color: #475569;
+}
+
+.search-box input,
+.filter-box select {
+    width: 100%;
+
+    padding: 11px 12px;
+
+    border: 1px solid #e2e8f0;
+
+    border-radius: 8px;
+
+    outline: none;
+
+    background-color: white;
+
+    color: #334155;
+}
+
+.search-box input:focus,
+.filter-box select:focus {
+    border-color: #4f46e5;
+}
