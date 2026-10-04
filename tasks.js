@@ -293,3 +293,35 @@ taskForm.addEventListener("submit", function (event) {
     renderTasks();
     closeModal();
 });
+
+// =========================================================
+// HAPUS TUGAS
+// =========================================================
+function deleteTask(id) {
+    deleteTaskId = id;
+    deleteConfirmModal.classList.add("show");
+}
+
+// Tombol batal hapus.
+cancelDeleteButton.addEventListener("click", function () {
+    deleteConfirmModal.classList.remove("show");
+    deleteTaskId = null;
+});
+
+// Tombol konfirmasi hapus.
+confirmDeleteButton.addEventListener("click", function () {
+    if (deleteTaskId === null) {
+        return;
+    }
+
+    tasks = tasks.filter(function (task) {
+        return task.id !== deleteTaskId;
+    });
+
+    saveTasks();
+    deleteConfirmModal.classList.remove("show");
+    deleteTaskId = null;
+
+    renderTasks();
+    showToast("🗑️ Tugas berhasil dihapus.");
+});
