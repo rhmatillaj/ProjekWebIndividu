@@ -797,3 +797,75 @@ tbody tr:hover {
 
     overflow-x: auto;
 }
+
+/* ========================================
+   WEEK CALENDAR
+======================================== */
+
+.calendar-grid {
+    display: grid;
+
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+
+    gap: 8px;
+
+    min-width: 0;
+    width: 100%;
+}
+
+.day-column {
+    min-width: 0;
+    min-height: 400px;
+
+    background-color: #f8fafc;
+
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.day-header {
+    padding: 14px 8px;
+
+    text-align: center;
+
+    background-color: #eef2ff;
+
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.day-header h3 {
+    font-size: 13px;
+    color: #334155;
+}
+
+.schedule-list {
+    min-height: 350px;
+    height: calc(100% - 45px);
+
+    padding: 7px;
+    border-radius: 8px;
+
+    transition: background-color 0.2s;
+}
+
+/* Card ketika sedang ditarik */
+.schedule-card .schedule-item {
+    cursor: grab;
+    user-select: none;
+}
+
+.schedule-card .schedule-item:active {
+    cursor: grabbing;
+}
+
+/* Card yang sedang diangkat */
+.schedule-card .schedule-item.is-dragging {
+    opacity: 0.4;
+}
+
+/* Kolom tujuan ketika card diarahkan ke sana */
+.schedule-list.drag-over {
+    background-color: #e0e7ff;
+    outline: 2px dashed #4f46e5;
+    outline-offset: -3px;
+}
