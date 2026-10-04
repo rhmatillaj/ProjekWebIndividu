@@ -218,3 +218,85 @@ addScheduleButton.addEventListener("click", function () {
 // Tombol tutup dan batal.
 closeScheduleModal.addEventListener("click", closeScheduleModalWindow);
 cancelScheduleButton.addEventListener("click", closeScheduleModalWindow);
+
+
+// =========================================================
+// TAMBAH / EDIT JADWAL
+// =========================================================
+scheduleForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const course = scheduleCourse.value.trim();
+    const day = scheduleDay.value;
+    const start = scheduleStart.value;
+    const end = scheduleEnd.value;
+    const room = scheduleRoom.value.trim();
+
+    // Validasi input form.
+    if (course === "") {
+        showToast("⚠️ Nama mata kuliah/kegiatan belum diisi.");
+        return;
+    }
+
+    if (day === "") {
+        showToast("⚠️ Hari belum dipilih.");
+        return;
+    }
+
+    if (start === "") {
+        showToast("⚠️ Waktu mulai belum diisi.");
+        return;
+    }
+
+    if (end === "") {
+        showToast("⚠️ Waktu selesai belum diisi.");
+        return;
+    }
+
+    if (room === "") {
+        showToast("⚠️ Ruangan belum diisi.");
+        return;
+    }
+
+    if (end <= start) {
+        showToast("⚠️ Waktu selesai harus setelah waktu mulai.");
+        return;
+    }
+
+    // Jika sedang edit, ubah data jadwal yang lama.
+    if (editScheduleId !== null) {
+        const schedule = schedules.find(function (item) {
+            return item.id === editScheduleId;
+        });
+
+        if (!schedule) {
+            return;
+        }
+
+        schedule.course = course;
+        schedule.day = day;
+        schedule.start = start;
+        schedule.end = end;
+        schedule.room = room;
+
+        saveSchedules();
+        showToast("✅ Jadwal berhasil diperbarui.");
+    } else {
+        // Jika tidak sedang edit, tambahkan jadwal baru.
+        const newSchedule = {
+            id: Date.now(),
+            course: course,
+            day: day,
+            start: start,
+            end: end,
+            room: room
+        };
+
+        schedules.push(newSchedule);
+        saveSchedules();
+        showToast("✅ Jadwal berhasil ditambahkan.");
+    }
+
+    renderSchedule();
+    closeScheduleModalWindow();
+});
