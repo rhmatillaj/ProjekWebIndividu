@@ -214,3 +214,176 @@
         </section>
 
     </main>
+
+        <!-- MODAL -->
+    <div
+        class="modal"
+        id="scheduleModal"
+        aria-hidden="true"
+    >
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <div>
+
+                    <h2 id="scheduleModalTitle">
+                        Tambah Jadwal
+                    </h2>
+
+                    <p>
+                        Masukkan informasi jadwal
+                    </p>
+
+                </div>
+
+                <button
+                    type="button"
+                    class="close-button"
+                    id="closeScheduleModal"
+                    aria-label="Tutup"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <form id="scheduleForm">
+
+                <div class="form-group">
+
+                    <label for="scheduleCourse">
+                        Nama Kegiatan / Mata Kuliah
+                    </label>
+
+                    <input
+                        type="text"
+                        id="scheduleCourse"
+                        placeholder="Contoh: Pemrograman Web"
+                        
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="scheduleDay">
+                        Hari
+                    </label>
+
+                    <select
+                        id="scheduleDay"
+                        
+                    >
+
+                        <option value="">
+                            Pilih Hari
+                        </option>
+
+                        <option value="Senin">
+                            Senin
+                        </option>
+
+                        <option value="Selasa">
+                            Selasa
+                        </option>
+
+                        <option value="Rabu">
+                            Rabu
+                        </option>
+
+                        <option value="Kamis">
+                            Kamis
+                        </option>
+
+                        <option value="Jumat">
+                            Jumat
+                        </option>
+                        <option value="Sabtu">
+                            Sabtu
+                        </option>
+                        <option value="Minggu">
+                            Minggu
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label for="scheduleStart">
+                            Mulai
+                        </label>
+
+                        <input
+                            type="time"
+                            id="scheduleStart"
+                            
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="scheduleEnd">
+                            Selesai
+                        </label>
+
+                        <input
+                            type="time"
+                            id="scheduleEnd"
+                            
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="scheduleRoom">
+                        Ruangan / Lokasi
+                    </label>
+
+                    <input
+                        type="text"
+                        id="scheduleRoom"
+                        placeholder="Contoh: Lab Komputer"
+                    >
+
+                </div>
+
+
+                <div class="modal-actions">
+
+                    <button
+                        type="button"
+                        class="secondary-button"
+                        id="cancelScheduleButton"
+                    >
+                        Batal
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="primary-button"
+                    >
+                        Simpan Jadwal
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
