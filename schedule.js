@@ -191,3 +191,30 @@ function renderTodaySchedule() {
     });
 }
 
+// =========================================================
+// MODAL JADWAL
+// =========================================================
+function openScheduleModal() {
+    scheduleModal.classList.add("show");
+    scheduleModal.setAttribute("aria-hidden", "false");
+}
+
+function closeScheduleModalWindow() {
+    scheduleModal.classList.remove("show");
+    scheduleModal.setAttribute("aria-hidden", "true");
+    scheduleForm.reset();
+    editScheduleId = null;
+    scheduleModalTitle.textContent = "Tambah Jadwal";
+}
+
+// Tombol tambah jadwal.
+addScheduleButton.addEventListener("click", function () {
+    editScheduleId = null;
+    scheduleForm.reset();
+    scheduleModalTitle.textContent = "Tambah Jadwal";
+    openScheduleModal();
+});
+
+// Tombol tutup dan batal.
+closeScheduleModal.addEventListener("click", closeScheduleModalWindow);
+cancelScheduleButton.addEventListener("click", closeScheduleModalWindow);
