@@ -77,9 +77,9 @@ Data yang dibuat pengguna disimpan pada **Local Storage**, sehingga data tetap t
 
 ## Link Project
 
-- **Figma:** [Masukkan link Figma di sini]
-- **GitHub Repository:** [Masukkan link GitHub di sini]
-- **Live Demo:** [Masukkan link GitHub Pages di sini]
+- **Figma:** (https://www.figma.com/design/5An5ARBuzUXa51aUGO17Uf/ProjekWeb-TasKuy-?node-id=2619-109&t=b3n9IKWed9aFZNdD-1)
+- **GitHub Repository:** (https://github.com/rhmatillaj/ProjekWebIndividu)
+- **Live Demo:** https://rhmatillaj.github.io/ProjekWebIndividu/
 
 ## Catatan
 
